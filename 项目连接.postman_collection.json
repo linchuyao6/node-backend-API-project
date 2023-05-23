@@ -1,0 +1,515 @@
+{
+	"info": {
+		"_postman_id": "f343a044-3ac5-44d3-9515-d0f7cc017fdc",
+		"name": "项目连接",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "用户登陆验证",
+			"item": [
+				{
+					"name": "添加用户",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n   \"name\":\"yqq2\",\n   \"password\":\"dc0fa7df3d07904a09288bd2d2bb5f40\"\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/user",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "用户登陆",
+			"item": [
+				{
+					"name": "用户首次登陆",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// reponse解析json",
+									"jsonData = pm.response.json();",
+									"// 设置为环境变量",
+									"pm.environment.set(\"token\", jsonData.data.token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\":\"yqq\",\n    \"password\":\"e10adc3949ba59abbe56e057f20f883e\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/login",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "用户登陆验证",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/login/test",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"login",
+								"test"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "动态模块",
+			"item": [
+				{
+					"name": "发表评论",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"content\":\"ppppp\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/moment",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"moment"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "查看所有动态",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/moment/list?offsize=0&size=10",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"moment",
+								"list"
+							],
+							"query": [
+								{
+									"key": "offsize",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "获取单条数据",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/moment/3",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"moment",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "修改评论",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"content\":\"444488888\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/moment/3",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"moment",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "删除动态",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/moment/25",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"moment",
+								"25"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "添加对应标签动态",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"labels\":[\"rap\",\"唱歌\",\"pp\"]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/moment/3/labels",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"moment",
+								"3",
+								"labels"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "评论模块",
+			"item": [
+				{
+					"name": "发表评论",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"content\":\"htii\",\n    \"momentId\":3\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/comment",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"comment"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "回复评论",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"content\":\"ppp\",\n    \"momentId\":3,\n    \"commentId\":2\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/comment/reply",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"comment",
+								"reply"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "标签模块",
+			"item": [
+				{
+					"name": "添加标签",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\":\"ll\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/label",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"label"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "标签列表",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/label",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"label"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "上传用户图像",
+			"item": [
+				{
+					"name": "上传图片",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "avatar",
+									"type": "file",
+									"src": "/Users/macbookpro/Downloads/219498e11bb03bea.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseURL}}/file/avatar",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"file",
+								"avatar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "获取用户头像",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/user/avatar/1",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"user",
+								"avatar",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
